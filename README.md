@@ -5,7 +5,9 @@
 * <img width="541" height="586" alt="image" src="https://github.com/user-attachments/assets/86904f6c-6831-4050-afef-fb7a44984e5c" />
 
 
-Главен екран (MainActivity): Динамичен списък (RecyclerView) с всички одобрени (APPROVED) спортни зали в системата. Асинхронно зареждане на изображения за залите от отдалечен сървър.
+Главен екран (MainActivity): 
+Динамичен списък (RecyclerView) с всички одобрени (APPROVED) спортни зали в системата. 
+Асинхронно зареждане на изображения за залите от отдалечен сървър.
 <img width="361" height="617" alt="image" src="https://github.com/user-attachments/assets/c8e2b908-425c-431e-abaf-0277332a83f0" />
 
 

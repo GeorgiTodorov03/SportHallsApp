@@ -2,10 +2,10 @@
 📱 Функционалности (До момента) 
 Автентикация и Оторизация: * Регистрация на потребители.
 * Вход (Login) със сигурност, базирана на JWT Токени. Токенът се запазва локално и се използва за всяка последваща заявка.
-* <img width="541" height="586" alt="image" src="https://github.com/user-attachments/assets/86904f6c-6831-4050-afef-fb7a44984e5c" />
+<img width="541" height="586" alt="image" src="https://github.com/user-attachments/assets/86904f6c-6831-4050-afef-fb7a44984e5c" />
 
 
-Главен екран (MainActivity): 
+*Главен екран (MainActivity): 
 Динамичен списък (RecyclerView) с всички одобрени (APPROVED) спортни зали в системата. 
 Асинхронно зареждане на изображения за залите от отдалечен сървър.
 

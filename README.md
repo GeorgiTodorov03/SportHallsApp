@@ -8,10 +8,14 @@
 Главен екран (MainActivity): 
 Динамичен списък (RecyclerView) с всички одобрени (APPROVED) спортни зали в системата. 
 Асинхронно зареждане на изображения за залите от отдалечен сървър.
+
 <img width="361" height="617" alt="image" src="https://github.com/user-attachments/assets/c8e2b908-425c-431e-abaf-0277332a83f0" />
 
 
-Детайли за Зала (DetailActivity): Пълна информация: локация, описание, рейтинг и цена за час. Динамично визуализиране на работното време.
+Детайли за Зала (DetailActivity): 
+Пълна информация: локация, описание, рейтинг и цена за час. 
+Динамично визуализиране на работното време.
+
 <img width="365" height="489" alt="image" src="https://github.com/user-attachments/assets/06acb835-4822-4db5-bd49-ee94219d7b0d" />
 
 

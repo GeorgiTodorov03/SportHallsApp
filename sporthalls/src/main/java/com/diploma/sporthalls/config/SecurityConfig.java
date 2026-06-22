@@ -38,7 +38,7 @@ public class SecurityConfig {
                 // 2. Настройваме кои пътища са публични и кои заключени
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers("/api/v1/halls/**").authenticated() // Залите искат токен (работи)
+                        .requestMatchers("/api/v1/halls/**").permitAll() // Залите искат токен (работи)
                         .requestMatchers("/api/v1/reservations/**").authenticated() // ВАЖНО: Добави това, за да кажеш на Spring, че този URL също очаква JWT токен!// Всичко под /auth е достъпно за всеки
                         .requestMatchers("/api/v1/auth/**", "/ws/**").permitAll()
                         .anyRequest().authenticated())                         // Всички останали заявки изискват токен

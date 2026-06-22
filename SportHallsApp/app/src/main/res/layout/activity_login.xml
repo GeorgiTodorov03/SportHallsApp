@@ -1,74 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center"
-    android:background="#F8F9FA">
+    android:background="#090F14"
+    android:padding="20dp">
 
     <TextView
+        android:id="@+id/btnBack"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Добре дошли"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:textColor="#212529"
-        android:layout_marginBottom="8dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Влезте в профила си, за да резервирате"
+        android:layout_height="48dp"
+        android:text="← Назад"
+        android:textColor="#94A3B8"
         android:textSize="16sp"
-        android:textColor="#6C757D"
-        android:layout_marginBottom="32dp"/>
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:padding="8dp"
+        android:clickable="true"
+        android:focusable="true"/>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
+        android:id="@+id/llHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SportsHall"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Влез в своя акаунт"
+            android:textColor="#94A3B8"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"/>
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:layout_below="@id/llHeader"
+        android:layout_marginTop="40dp"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="#0F1A24"
+        app:strokeWidth="0dp">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGoogleLogin"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Продължи с Google"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="false"
+                app:backgroundTint="#090F14"
+                app:cornerRadius="12dp"
+                app:strokeColor="#1E293B"
+                app:strokeWidth="1dp"
+                app:icon="@android:drawable/ic_menu_compass"
+                app:iconTint="#FFFFFF"/>
+
+            <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="или с имейл"
+            android:textColor="#64748B"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/tvEmailLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Имейл"
+                android:textColor="#E2E8F0"
+                android:textStyle="bold"
+                android:labelFor="@id/etEmail" />
+
+            <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Имейл адрес"
-            android:inputType="textEmailAddress" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="50dp"
+            android:background="@android:drawable/editbox_background_normal"
+            android:backgroundTint="#090F14"
+            android:inputType="textEmailAddress"
+            android:textColor="#FFFFFF"
+            android:paddingLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:autofillHints="password" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <com.google.android.material.textfield.TextInputEditText
+
+            <TextView
+                android:id="@+id/tvPasswordLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Парола"
+                android:textColor="#E2E8F0"
+                android:textStyle="bold"
+                android:labelFor="@id/etPassword" />
+
+            <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Парола"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="50dp"
+            android:background="@android:drawable/editbox_background_normal"
+            android:backgroundTint="#090F14"
+            android:inputType="textPassword"
+            android:textColor="#FFFFFF"
+            android:paddingLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="24dp"
+            android:autofillHints="emailAddress" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:text="Вход"
-        android:textSize="18sp"
-        android:backgroundTint="#0D6EFD"
-        android:layout_marginBottom="16dp" />
 
-    <TextView
-        android:id="@+id/tvRegisterLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Нямате профил? Регистрирайте се"
-        android:textColor="#0D6EFD"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:padding="8dp"/>
 
-</LinearLayout>
+            <Button
+                android:id="@+id/btnLoginSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Влез"
+                android:textColor="#090F14"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:backgroundTint="#22C55E"
+                app:cornerRadius="12dp"/>
+
+            <TextView
+                android:id="@+id/tvRegisterRedirect"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="Нямаш акаунт? Регистрирай се"
+                android:textColor="#94A3B8"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:clickable="true"
+                android:focusable="true"/>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

@@ -6,12 +6,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.diploma.sporthallsapp.R;
 import com.diploma.sporthallsapp.api.ApiClient;
-import com.diploma.sporthallsapp.api.ApiService;
 import com.diploma.sporthallsapp.model.RegisterRequest;
 
 import okhttp3.ResponseBody;
@@ -57,9 +57,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         RegisterRequest request = new RegisterRequest(email, password, firstName, lastName, phone, isOwner);
 
-        ApiClient.getApiService().registerUser(request).enqueue(new Callback<ResponseBody>() {
+        ApiClient.getApiService().registerUser(request).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(RegisterActivity.this, "Регистрацията е успешна!", Toast.LENGTH_LONG).show();
                     finish(); // Затваряме екрана и се връщаме към Login

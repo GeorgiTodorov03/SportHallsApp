@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
@@ -78,9 +80,7 @@ public class DetailActivity extends AppCompatActivity {
                     .into(ivHallImage);
         }
 
-        btnBook.setOnClickListener(v -> {
-            showDatePicker();
-        });
+        btnBook.setOnClickListener(v -> showDatePicker());
     }
 
     private void showDatePicker() {
@@ -110,9 +110,9 @@ public class DetailActivity extends AppCompatActivity {
 
         // Заявка към ApiService (увери се, че имаш този метод в ApiService.java от предната стъпка)
         ApiClient.getApiService().getOccupiedReservations(hall.getId(), requestDate)
-                .enqueue(new Callback<List<ReservationResponse>>() {
+                .enqueue(new Callback<>() {
                     @Override
-                    public void onResponse(Call<List<ReservationResponse>> call, Response<List<ReservationResponse>> response) {
+                    public void onResponse(@NonNull Call<List<ReservationResponse>> call, @NonNull Response<List<ReservationResponse>> response) {
                         List<String> occupiedHours = new ArrayList<>();
 
                         if (response.isSuccessful() && response.body() != null) {
@@ -130,7 +130,7 @@ public class DetailActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<List<ReservationResponse>> call, Throwable t) {
+                    public void onFailure(@NonNull Call<List<ReservationResponse>> call, @NonNull Throwable t) {
                         // При мрежова грешка показваме всички часове като свободни (за защита от забиване)
                         showSmartTimePickerDialog(new ArrayList<>());
                     }
@@ -201,9 +201,9 @@ public class DetailActivity extends AppCompatActivity {
         ReservationRequest request = new ReservationRequest(sportsHallReq, formattedDateTime);
         String authHeader = "Bearer " + token;
 
-        ApiClient.getApiService().createReservation(authHeader, request).enqueue(new Callback<ResponseBody>() {
+        ApiClient.getApiService().createReservation(authHeader, request).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(DetailActivity.this, "Резервацията е успешна!", Toast.LENGTH_LONG).show();
                     finish(); // Връща потребителя обратно в списъка
@@ -220,7 +220,7 @@ public class DetailActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 Toast.makeText(DetailActivity.this, "Мрежова грешка: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

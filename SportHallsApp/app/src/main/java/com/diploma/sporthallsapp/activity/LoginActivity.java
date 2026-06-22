@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +19,7 @@ import com.diploma.sporthallsapp.R;
 import com.diploma.sporthallsapp.api.ApiClient;
 import com.diploma.sporthallsapp.model.LoginRequest;
 import com.diploma.sporthallsapp.model.LoginResponse;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import retrofit2.Call;
@@ -24,38 +28,40 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private TextInputEditText etEmail, etPassword;
-    private Button btnLogin;
-    private TextView tvRegisterLink;
-    private SharedPreferences sharedPreferences;
+    private static final String TAG = "LOGIN_ROLE_TEST";
+
+    private EditText etEmail, etPassword;
+    private Button btnLoginSubmit;
+    private MaterialButton btnGoogleLogin;
+    private TextView btnBack, tvRegisterRedirect;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Инициализираме SharedPreferences за локално пазене на токена
-        sharedPreferences = getSharedPreferences("SportHallsPrefs", Context.MODE_PRIVATE);
-
-        // Проверка: Ако потребителят вече има запазен токен, прескачаме този екран директно към Главния екран
-        if (sharedPreferences.getString("token", null) != null) {
-            navigateToMain();
-        }
-
-        // Обвързваме XML елементите с Java кода
+        // Инициализация на компонентите от новия XML дизайн
+        btnBack = findViewById(R.id.btnBack);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
-        btnLogin = findViewById(R.id.btnLogin);
-        tvRegisterLink = findViewById(R.id.tvRegisterLink);
+        btnLoginSubmit = findViewById(R.id.btnLoginSubmit);
+        btnGoogleLogin = findViewById(R.id.btnGoogleLogin);
+        tvRegisterRedirect = findViewById(R.id.tvRegisterRedirect);
 
-        // Клик на бутона за Вход
-        btnLogin.setOnClickListener(v -> handleLogin());
+        // Бутон Назад - затваря LoginActivity и връща госта в MainActivity
+        btnBack.setOnClickListener(v -> finish());
 
-        // Клик за отиване на екран Регистрация
-        tvRegisterLink.setOnClickListener(v -> {
-            Toast.makeText(LoginActivity.this, "Екранът за регистрация следва...", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-            startActivity(intent);
+        // Бутон за вход чрез REST API
+        btnLoginSubmit.setOnClickListener(v -> handleLogin());
+
+        // Бутон за Google Authentication (Логиката ще се имплементира на по-късен етап)
+        btnGoogleLogin.setOnClickListener(v -> {
+            Toast.makeText(this, "Интеграцията с Google предстои...", Toast.LENGTH_SHORT).show();
+        });
+
+        // Пренасочване към екрана за регистрация
+        tvRegisterRedirect.setOnClickListener(v -> {
+            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
         });
     }
 
@@ -71,45 +77,28 @@ public class LoginActivity extends AppCompatActivity {
         LoginRequest loginRequest = new LoginRequest(email, password);
 
         // Извикваме уеб заявката асинхронно
-        ApiClient.getApiService().login(loginRequest).enqueue(new Callback<LoginResponse>() {
+        ApiClient.getApiService().login(loginRequest).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                if(response.isSuccessful() && response.body() != null) {
+            public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
 
-                    // Успешен вход! Сървърът ни връща токен и роля.
-                    String token = response.body().getToken();
-                    String role = response.body().getRole();
+                    LoginResponse loginResponse = response.body();
 
-                    // Записваме JWT токена трайно в устройството
+                    // Запазване на JWT токена в SharedPreferences
+                    SharedPreferences sharedPreferences = getSharedPreferences("SportHallsPrefs", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("token", token);
-                    editor.putString("role", role);
+                    editor.putString("token", loginResponse.getToken());
                     editor.apply();
 
-
-                    // ДИНАМИЧНО ПРЕНАСОЧВАНЕ СПОРЕД РОЛЯТА
-                    if ("OWNER".equals(role)) {
-                        Intent intent = new Intent(LoginActivity.this, OwnerDashboardActivity.class);
-                        Toast.makeText(LoginActivity.this, "Успешен вход!", Toast.LENGTH_SHORT).show();
-                        startActivity(intent);
-                    } else if ("ADMIN".equals(role)) {
-                        Intent intent = new Intent(LoginActivity.this, AdminApprovalActivity.class);
-                        Toast.makeText(LoginActivity.this, "Успешен вход!", Toast.LENGTH_SHORT).show();
-                        startActivity(intent);
-                    } else {
-                        // По подразбиране (ROLE_USER) си отива в сегашния главен екран със залите
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        Toast.makeText(LoginActivity.this, "Успешен вход!", Toast.LENGTH_SHORT).show();
-                        startActivity(intent);
-                    }
-                    finish();
+                    // Обработка на ролята и интелигентно пренасочване
+                    navigateToDashboard(loginResponse);
                 } else {
-                    Toast.makeText(LoginActivity.this, "Грешен имейл или парола!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Невалидни потребителски данни!", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
 
                 // Изписва грешка при проблем с мрежата (напр. спрян сървър или грешно IP)
                 Toast.makeText(LoginActivity.this, "Грешка при връзка със сървъра: " + t.getMessage(), Toast.LENGTH_LONG).show();
@@ -117,9 +106,38 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void navigateToMain() {
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish(); // Затваряме LoginActivity, за да не може потребителят да се върне назад с бутона Back
+    private void navigateToDashboard(LoginResponse loginResponse) {
+        if (loginResponse.getRole() == null) {
+            Toast.makeText(this, "Грешка: Бекендът не върна роля!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Преобразуваме ролята в главни букви и премахваме излишни интервали
+        String role = loginResponse.getRole().toUpperCase().trim();
+
+        // Дебъг лог в Logcat за лесно проследяване при грешки в низовете
+        Log.d(TAG, "Пристигаща роля от бекенда: -> " + role);
+
+        Intent intent;
+
+        if (role.contains("ADMIN")) {
+            // Пренасочване към Административния панел за одобрение на зали
+            intent = new Intent(LoginActivity.this, AdminApprovalActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        } else if (role.contains("OWNER")) {
+            // Пренасочване към Таблото на собственика на зали
+            intent = new Intent(LoginActivity.this, OwnerDashboardActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        } else {
+            // Потребителят е с роля ROLE_USER или обикновен клиент.
+            // Понеже той ВЕЧЕ е в MainActivity (откъдето е извикан лог-ина),
+            // просто затваряме LoginActivity с finish(), за да се върне там като автентикиран потребител.
+            Toast.makeText(this, "Успешен вход!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 }

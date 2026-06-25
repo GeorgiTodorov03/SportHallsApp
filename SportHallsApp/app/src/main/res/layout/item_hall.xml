@@ -4,10 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp"
-    app:cardBackgroundColor="#FFFFFF">
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardBackgroundColor="#0F1A24"
+    app:strokeWidth="1dp"
+    app:strokeColor="#1E293B">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,75 +19,96 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/ivHallImage"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:background="#DDDDDD"
-            android:layout_marginBottom="16dp"/>
+            android:layout_height="160dp"
+            app:cardCornerRadius="12dp"
+            app:strokeWidth="0dp"
+            android:layout_marginBottom="12dp">
+
+            <ImageView
+                android:id="@+id/ivHallImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder_hall" />
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:id="@+id/tvHallName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Име на залата"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#212529" />
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvHallType"
+            android:id="@+id/tvSportType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Тип (напр. Футбол)"
+            android:textColor="#38BDF8"
             android:textSize="14sp"
-            android:textColor="#0D6EFD"
-            android:layout_marginTop="4dp" />
+            android:layout_marginTop="2dp" />
 
         <TextView
-            android:id="@+id/tvHallLocation"
+            android:id="@+id/tvHallAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Локация"
+            android:textColor="#94A3B8"
             android:textSize="14sp"
-            android:textColor="#6C757D"
             android:layout_marginTop="4dp" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="12dp">
 
-            <TextView
-                android:id="@+id/tvHallRating"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="⭐ 0.0"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_alignParentStart="true">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@android:drawable/btn_star_big_on"
+                    android:layout_marginEnd="4dp"/>
+
+                <TextView
+                    android:id="@+id/tvHallRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.8"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="16dp"/>
+
+                <TextView
+                    android:id="@+id/tvHallWorkingHours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Работно време: 08:00 - 22:00"
+                    android:textColor="#A855F7"
+                    android:textStyle="bold"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvHallPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50.00 лв / час"
+                android:textColor="#22C55E"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginEnd="24dp"/>
-
-            <TextView
-                android:id="@+id/tvHallWorkingHours"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Работно време: --:-- - --:--"
-                android:textSize="16sp"
-                android:textColor="#008577"/>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvHallPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="50.00 лв / час"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#198754"
-            android:layout_marginTop="8dp"
-            android:layout_gravity="end" />
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

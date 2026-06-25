@@ -4,6 +4,7 @@ compiler = "4.12.0"
 converterGson = "2.9.0"
 githubCompiler = "4.12.0"
 glideVersion = "4.16.0"
+googlePlayServicesMaps = "18.2.0"
 junit = "4.13.2"
 junitVersion = "1.3.0"
 espressoCore = "3.7.0"
@@ -13,6 +14,7 @@ material = "1.12.0"
 activity = "1.9.3"
 constraintlayout = "2.2.1"
 materialVersion = "1.11.0"
+playServicesMaps = "20.0.0"
 
 [libraries]
 compiler = { module = "com.github.bumtech.glide:compiler", version.ref = "compiler" }
@@ -28,6 +30,8 @@ material = { group = "com.google.android.material", name = "material", version.r
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 material-v1110 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
+play-services-maps-v1820 = { module = "com.google.android.gms:play-services-maps", version.ref = "googlePlayServicesMaps" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "converterGson" }
 
 [plugins]

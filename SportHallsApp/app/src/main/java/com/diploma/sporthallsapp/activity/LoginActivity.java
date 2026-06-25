@@ -118,26 +118,9 @@ public class LoginActivity extends AppCompatActivity {
         // Дебъг лог в Logcat за лесно проследяване при грешки в низовете
         Log.d(TAG, "Пристигаща роля от бекенда: -> " + role);
 
-        Intent intent;
 
-        if (role.contains("ADMIN")) {
-            // Пренасочване към Административния панел за одобрение на зали
-            intent = new Intent(LoginActivity.this, AdminApprovalActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
-        } else if (role.contains("OWNER")) {
-            // Пренасочване към Таблото на собственика на зали
-            intent = new Intent(LoginActivity.this, OwnerDashboardActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
-        } else {
-            // Потребителят е с роля ROLE_USER или обикновен клиент.
-            // Понеже той ВЕЧЕ е в MainActivity (откъдето е извикан лог-ина),
-            // просто затваряме LoginActivity с finish(), за да се върне там като автентикиран потребител.
-            Toast.makeText(this, "Успешен вход!", Toast.LENGTH_SHORT).show();
-            finish();
-        }
+        Toast.makeText(this, "Успешен вход!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }
+

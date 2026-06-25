@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#090F14"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Намери зала"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/etSearchHalls"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:drawable/editbox_background_normal"
+        android:backgroundTint="#0F1A24"
+        android:hint="Търси по име или град..."
+        android:textColorHint="#64748B"
+        android:textColor="#FFFFFF"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:inputType="text"
+        android:autofillHints="none"
+        android:layout_marginBottom="16dp"/>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_marginBottom="16dp">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupSports"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipAll"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Всички"
+                android:checked="true"
+                app:chipBackgroundColor="@color/bnv_tab_item_foreground"
+                android:textColor="#FFFFFF"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipFootball"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Футбол"
+                app:chipBackgroundColor="@color/bnv_tab_item_foreground"
+                android:textColor="#FFFFFF"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipBasketball"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Баскетбол"
+                app:chipBackgroundColor="@color/bnv_tab_item_foreground"
+                android:textColor="#FFFFFF"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipTennis"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Тенис"
+                app:chipBackgroundColor="@color/bnv_tab_item_foreground"
+                android:textColor="#FFFFFF"/>
+
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAllHalls"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="60dp"
+        android:clipToPadding="false"/>
+
+</LinearLayout>

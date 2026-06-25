@@ -15,15 +15,12 @@
         android:theme="@style/Theme.SportHallsApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".activity.AdminApprovalActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.OwnerDashboardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.AddSportsHallActivity"
-            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCgpKgx7aUqUOPmBszzvedZrcJZM7gqx0Y" />
+
+
         <activity
             android:name=".activity.DetailActivity"
             android:exported="false" />

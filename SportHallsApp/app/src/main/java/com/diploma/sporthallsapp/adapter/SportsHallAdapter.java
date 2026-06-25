@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.diploma.sporthallsapp.R;
 import com.diploma.sporthallsapp.activity.DetailActivity;
 import com.diploma.sporthallsapp.model.SportsHall;
@@ -40,13 +39,11 @@ public class SportsHallAdapter extends RecyclerView.Adapter<SportsHallAdapter.Ha
         holder.tvHallType.setText(hall.getType());
         holder.tvHallLocation.setText(hall.getLocation());
         holder.tvHallPrice.setText(String.format("%.2f лв / час", hall.getPricePerHour()));
+        holder.tvHallRating.setText(String.valueOf(hall.getRating()));
+        holder.tvWorkingHours.setText("Работно време: " + hall.getWorkingHoursFrom() + "-" + hall.getWorkingHoursTo());
 
         // ЗАРЕЖДАНЕ НА СНИМКАТА С GLIDE
-        Glide.with(holder.itemView.getContext())
-                .load(hall.getImageUrl()) // Взема URL линка от базата данни
-                .placeholder(R.drawable.placeholder_hall) // Снимка по подразбиране докато зарежда
-                .error(R.drawable.placeholder_hall) // Снимка при грешка
-                .into(holder.ivHallImage);
+        holder.ivHallImage.setImageResource(R.drawable.placeholder_hall);
 
         holder.itemView.setOnClickListener(v -> {
             Context context = v.getContext();
@@ -67,15 +64,17 @@ public class SportsHallAdapter extends RecyclerView.Adapter<SportsHallAdapter.Ha
     }
 
     static class HallViewHolder extends RecyclerView.ViewHolder {
-        TextView tvHallName, tvHallType, tvHallLocation, tvHallPrice;
+        TextView tvHallName, tvHallType, tvHallLocation, tvHallPrice, tvHallRating, tvWorkingHours;
         ImageView ivHallImage;
 
         public HallViewHolder(@NonNull View itemView) {
             super(itemView);
             tvHallName = itemView.findViewById(R.id.tvHallName);
-            tvHallType = itemView.findViewById(R.id.tvHallType);
-            tvHallLocation = itemView.findViewById(R.id.tvHallLocation);
+            tvHallType = itemView.findViewById(R.id.tvSportType);
+            tvHallLocation = itemView.findViewById(R.id.tvHallAddress);
             tvHallPrice = itemView.findViewById(R.id.tvHallPrice);
+            tvHallRating = itemView.findViewById(R.id.tvHallRating); // Свържи рейтинга
+            tvWorkingHours = itemView.findViewById(R.id.tvHallWorkingHours);
             ivHallImage = itemView.findViewById(R.id.ivHallImage);
 
         }

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#090F14"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Профил"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="start"
+        android:layout_marginBottom="32dp" />
+
+    <ImageView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@android:drawable/sym_def_app_icon"
+        android:layout_marginBottom="16dp"
+        app:tint="#38BDF8"/>
+
+    <LinearLayout
+        android:id="@+id/layoutProfileInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_dark_card"
+        android:padding="16dp"
+        android:layout_marginBottom="32dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvProfileEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="email@example.com"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:text="Изход от профила"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:backgroundTint="#EF4444"
+        app:cornerRadius="12dp"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/layoutProfileGuest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="visible"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Нямате достъп до профил"
+            android:textColor="#94A3B8"
+            android:textSize="16sp"
+            android:layout_marginBottom="24dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnProfileLogin"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="Вход в системата"
+            android:textColor="#090F14"
+            android:textStyle="bold"
+            app:backgroundTint="#22C55E"
+            app:cornerRadius="12dp" />
+    </LinearLayout>
+
+</LinearLayout>

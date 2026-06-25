@@ -45,6 +45,8 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.github.glide)
     annotationProcessor(libs.github.compiler)
+
+    implementation(libs.play.services.maps.v1820)
     
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
